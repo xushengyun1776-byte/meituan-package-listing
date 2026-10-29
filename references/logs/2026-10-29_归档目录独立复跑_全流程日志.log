@@ -1,0 +1,159 @@
+模板: E:\额外业务\agent操作备份\meituan-套餐上架-2026-10-29\上架数据模板.json
+
+>>> 步骤0a 回到商品列表页
+业务 iframe hash -> #/listView?tagId=1734724836
+list ctx 1637，健康=True（全部54）
+
+>>> 步骤0b 打开新建套餐表单
+[click_el] 候选坐标: [(1908, 336), (1698, 266), (2118, 406)]
+    [click_el] 点击 @1908,336 -> verify=False
+    [click_el] 点击 @1698,266 -> verify=False
+    [click_el] 点击 @2118,406 -> verify=False
+click 新建商品: no-element
+  dropdown not open, retry 1
+    [click_el] 候选坐标: [(1908, 336), (1698, 266), (2118, 406)]
+    [click_el] 点击 @1908,336 -> verify=True
+click 新建商品: clicked@1908,336
+click 新建套餐 -> js:SYNTH@1670,465
+FORM CTX: 1637 92477570449F
+  表单就绪: name=1 radio=2
+  cleanup: closed-open-modals:1
+
+>>> 步骤1 名称/类型/菜单分组
+模板: E:\额外业务\agent操作备份\meituan-套餐上架-2026-10-29\上架数据模板.json
+目标: {"name": "楚味一人食·自选搭配", "type": "分组可选套餐", "menu_group": "一人食套餐", "main_image": "E:/额外业务/agent操作备份/meituan-套餐上架-2026-10-29/assets/主图_上架用_650x650.jpg", "description": "楚味一人食·自选搭配：荤菜200ml二选一（鱼香肉丝/糖醋里脊/土家酸
+cleanup: no-backdrop
+name: typed:楚味一人食·自选搭配
+名称 = 楚味一人食·自选搭配
+radio before: [{"v":"1","checked":true,"t":"固定搭配套餐"},{"v":"2","checked":false,"t":"分组可选套餐"}] | groups=0 skuSum=0
+click 类型[分组可选套餐]: js:SYNTH@1151,284
+radio after : [{"v":"1","checked":false,"t":"固定搭配套餐"},{"v":"2","checked":true,"t":"分组可选套餐"},{"v":"1","checked":true,"t":"全时段售卖"},{"v":"2","checked":false,"t":"自定义时段"}] | groups=1 skuSum=0
+  ready: 菜单分组下拉
+menu group: selected:一人食套餐 (verified)
+菜单分组 = 一人食套餐
+
+>>> 步骤2.0 建组[荤菜200ml二选一] 类型=可选商品 选N=1
+cleanup: no-backdrop
+  reuse empty group at idx 0
+  name: typed:荤菜200ml二选一
+  group-type: 已是 可选商品，跳过
+  open-picker: js:SYNTH@992,457
+  [pick_auto] Modal.cid = 1693 group_count = 10
+  clear: 已选区为空，跳过
+    [wait_ready] raw='["本店福利🎉","本店招牌 —🏅—","本店特色 —👍—","湖北鲜味 —😋—","湖乡下饭 —😍—","品质套餐 —🍱—","主食小吃 —🤩—","主食必选 —🍚—","饮料系列 —🧃—","一人食套餐"]' alive=True cid=1693
+  分组定位: {'洪湖农家糍粑鱼': '本店特色 —👍—', '糖醋里脊': '湖北鲜味 —😋—', '荆味鱼香肉丝': '湖北鲜味 —😋—', '沔阳粉蒸肉': '湖北鲜味 —😋—', '罗田板栗烧鸡': '湖北鲜味 —😋—', '土家酸辣鸡杂': '湖乡下饭 —😍—', '爆炒猪肝': '湖乡下饭 —😍—', '荆州小炒肉': '湖乡下饭 —😍—'}
+  picked 8/8 miss=[]
+  confirm: SYNTH@933,687
+  cleanup: clean
+  pickN: typed:1
+  groups: ['荤菜200ml二选一']
+  [0] 名称='荤菜200ml二选一' 类型='可选商品' '本组商品 8选' 选N=1 商品=['荆味鱼香肉丝', '糖醋里脊', '沔阳粉蒸肉', '罗田板栗烧鸡', '土家酸辣鸡杂', '荆州小炒肉', '爆炒猪肝', '洪湖农家糍粑鱼']
+
+>>> 步骤2.1 建组[素菜300ml四选一] 类型=可选商品 选N=1
+cleanup: no-backdrop
+  add-btn: js:SYNTH@964,1131
+  name: typed:素菜300ml四选一
+  group-type: 已是 可选商品，跳过
+  open-picker: js:SYNTH@992,670
+  [pick_auto] Modal.cid = 1699 group_count = 10
+  clear: 已选区为空，跳过
+    [wait_ready] raw='["本店福利🎉","本店招牌 —🏅—","本店特色 —👍—","湖北鲜味 —😋—","湖乡下饭 —😍—","品质套餐 —🍱—","主食小吃 —🤩—","主食必选 —🍚—","饮料系列 —🧃—","一人食套餐"]' alive=True cid=1699
+  分组定位: {'砂锅花菜': '湖乡下饭 —😍—', '砂锅扁豆': '湖乡下饭 —😍—', '江汉平原时令蔬菜': '湖乡下饭 —😍—', '荆西酸辣土豆丝': '湖乡下饭 —😍—'}
+  picked 4/4 miss=[]
+  confirm: SYNTH@933,687
+  cleanup: clean
+  pickN: typed:1
+  groups: ['荤菜200ml二选一', '素菜300ml四选一']
+  [0] 名称='荤菜200ml二选一' 类型='可选商品' '本组商品 8选' 选N=1 商品=['荆味鱼香肉丝', '糖醋里脊', '沔阳粉蒸肉', '罗田板栗烧鸡', '土家酸辣鸡杂', '荆州小炒肉', '爆炒猪肝', '洪湖农家糍粑鱼']
+  [1] 名称='素菜300ml四选一' 类型='可选商品' '本组商品 4选' 选N=1 商品=['江汉平原时令蔬菜', '荆西酸辣土豆丝', '砂锅花菜', '砂锅扁豆']
+
+>>> 步骤2.2 建组[加料二选一] 类型=可选商品 选N=1
+cleanup: no-backdrop
+  add-btn: js:SYNTH@964,1063
+  name: typed:加料二选一
+  group-type: 已是 可选商品，跳过
+  open-picker: js:SYNTH@992,669
+  [pick_auto] Modal.cid = 1705 group_count = 10
+  clear: 已选区为空，跳过
+    [wait_ready] raw='["本店福利🎉","本店招牌 —🏅—","本店特色 —👍—","湖北鲜味 —😋—","湖乡下饭 —😍—","品质套餐 —🍱—","主食小吃 —🤩—","主食必选 —🍚—","饮料系列 —🧃—","一人食套餐"]' alive=True cid=1705
+  分组定位: {'荆楚农家水蒸蛋': '本店福利🎉', '江汉平原香米': '主食必选 —🍚—'}
+  picked 2/2 miss=[]
+  confirm: SYNTH@933,687
+  cleanup: clean
+  pickN: typed:1
+  groups: ['荤菜200ml二选一', '素菜300ml四选一', '加料二选一']
+  [0] 名称='荤菜200ml二选一' 类型='可选商品' '本组商品 8选' 选N=1 商品=['荆味鱼香肉丝', '糖醋里脊', '沔阳粉蒸肉', '罗田板栗烧鸡', '土家酸辣鸡杂', '荆州小炒肉', '爆炒猪肝', '洪湖农家糍粑鱼']
+  [1] 名称='素菜300ml四选一' 类型='可选商品' '本组商品 4选' 选N=1 商品=['江汉平原时令蔬菜', '荆西酸辣土豆丝', '砂锅花菜', '砂锅扁豆']
+  [2] 名称='加料二选一' 类型='可选商品' '本组商品 2选' 选N=1 商品=['荆楚农家水蒸蛋', '江汉平原香米']
+
+>>> 步骤2.3 建组[固定香米] 类型=固定商品 选N=-
+cleanup: no-backdrop
+  add-btn: js:SYNTH@964,923
+  name: typed:固定香米
+  group-type: selected:固定商品 (verified)
+  open-picker: js:SYNTH@992,670
+  [pick_auto] Modal.cid = 1711 group_count = 10
+  clear: 已选区为空，跳过
+    [wait_ready] raw='["本店福利🎉","本店招牌 —🏅—","本店特色 —👍—","湖北鲜味 —😋—","湖乡下饭 —😍—","品质套餐 —🍱—","主食小吃 —🤩—","主食必选 —🍚—","饮料系列 —🧃—","一人食套餐"]' alive=True cid=1711
+  分组定位: {'江汉平原香米': '主食必选 —🍚—'}
+  picked 1/1 miss=[]
+  confirm: SYNTH@933,687
+  cleanup: clean
+  groups: ['荤菜200ml二选一', '素菜300ml四选一', '加料二选一', '固定香米']
+  [0] 名称='荤菜200ml二选一' 类型='可选商品' '本组商品 8选' 选N=1 商品=['荆味鱼香肉丝', '糖醋里脊', '沔阳粉蒸肉', '罗田板栗烧鸡', '土家酸辣鸡杂', '荆州小炒肉', '爆炒猪肝', '洪湖农家糍粑鱼']
+  [1] 名称='素菜300ml四选一' 类型='可选商品' '本组商品 4选' 选N=1 商品=['江汉平原时令蔬菜', '荆西酸辣土豆丝', '砂锅花菜', '砂锅扁豆']
+  [2] 名称='加料二选一' 类型='可选商品' '本组商品 2选' 选N=1 商品=['荆楚农家水蒸蛋', '江汉平原香米']
+  [3] 名称='固定香米' 类型='固定商品' None 选N=None 商品=['江汉平原香米']
+
+>>> 步骤3 规格组核对
+cleanup: no-backdrop
+  [0] 名称='荤菜200ml二选一' 类型='可选商品' '本组商品 8选' 选N=1 商品=['荆味鱼香肉丝', '糖醋里脊', '沔阳粉蒸肉', '罗田板栗烧鸡', '土家酸辣鸡杂', '荆州小炒肉', '爆炒猪肝', '洪湖农家糍粑鱼']
+  [1] 名称='素菜300ml四选一' 类型='可选商品' '本组商品 4选' 选N=1 商品=['江汉平原时令蔬菜', '荆西酸辣土豆丝', '砂锅花菜', '砂锅扁豆']
+  [2] 名称='加料二选一' 类型='可选商品' '本组商品 2选' 选N=1 商品=['荆楚农家水蒸蛋', '江汉平原香米']
+  [3] 名称='固定香米' 类型='固定商品' None 选N=None 商品=['江汉平原香米']
+
+>>> 步骤4 上传主图
+before count: 0 /5
+click 主图上传槽位: js:SYNTH@979,1021
+crop ctx 1637
+tab: SYNTH@971,397
+setFileInputFiles node 2906
+dispatch change: gone(组件已消费文件)
+dispatch change: gone(组件已消费文件)
+cropper content: OK 650x650
+  click 保存图片 (span)
+  -> SYNTH@1485,866
+  cleanup: clean
+  count: 0 -> 1 /5
+>>> UPLOAD OK
+
+>>> 步骤4b 图片计数
+THUMBS: {"cls":"thumbnailItem_yaKkYj upload_S2o0u2","hasImg":false,"src":"","inner":"上传图片 1/5","delCls":"I.roo-icon roo-icon-plus"} ;; {"cls":"thumbnail-item_wq8Spe upload_DaMcz_","hasImg":false,"src":"","inner":"上传图片","delCls":"I.roo-icon roo-icon-plus"}
+
+>>> 步骤5 售卖信息
+模板: E:\额外业务\agent操作备份\meituan-套餐上架-2026-10-29\上架数据模板.json
+目标值: {"portion": "1人份", "price": "29.9", "stock_remain": "10000", "stock_max": "10000", "box_fee": "2", "box_fee_unit": "每1份", "sell_time": "全时段售卖"}
+cleanup: no-backdrop
+  ready: 售卖信息区
+  ready: 价格输入框
+BEFORE 份量='' 价格='' 打包费='0' 单位='每1份'
+select 份量: selected:1人份 (verified)
+AFTER 份量 = 1人份
+type price: typed:29.9
+AFTER 价格 = 29.9
+type box fee: typed:2
+AFTER 打包费 = 2
+单位 = 每1份
+
+>>> 步骤6 套餐描述
+模板: E:\额外业务\agent操作备份\meituan-套餐上架-2026-10-29\上架数据模板.json
+desc len = 157
+cleanup: no-backdrop
+BEFORE: 0 :: 
+type: typed:楚味一人食·自选搭配：荤菜200ml二选一（鱼香肉丝/糖醋里脊/土家酸辣鸡杂/荆州小炒肉/爆炒猪肝/沔阳粉蒸肉/洪湖农家糍粑鱼/罗田板栗烧鸡任选其一），素菜300ml四选一（时令蔬菜/酸辣土豆丝/砂锅花菜/砂锅扁豆），加料二选一（荆楚农家水蒸蛋/江汉平原香米），另配江汉平原香米1份。荆楚风味，一人一餐，热食现做。
+AFTER : 157 :: 楚味一人食·自选搭配：荤菜200ml二选一（鱼香肉丝/糖醋里脊/土家酸辣鸡杂/荆州小炒肉/爆炒猪肝/沔阳粉蒸肉/洪湖农家糍粑鱼/罗田板栗烧鸡任选其一），素菜300ml四选一（时令蔬菜/酸辣土豆丝/砂锅花菜/砂锅扁豆），加料二选一（荆楚农家水蒸蛋/江汉平原香米），另配江汉平原香米1份。荆楚风味，一人一餐，热食现做。
+
+>>> 步骤7 截图存档
+saved run_all_售卖信息.png 246859
+
+=== --no-save：已填完，未提交。可用 cancel_draft.py 或 history.back() 放弃 ===

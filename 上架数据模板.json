@@ -1,0 +1,70 @@
+{
+  "_说明": "改这个文件就能上架下一个套餐。fill_sell.py / fill_desc.py 会读取本文件。路径请用绝对路径（本机 Windows 双反斜杠或正斜杠均可）。",
+
+  "store": {
+    "name": "千湖边湖北菜（经开万达店）",
+    "shop_id": "wmqhbh64296",
+    "backend_url": "https://waimaie.meituan.com/#/gw/static_resource/product#/listView"
+  },
+
+  "package": {
+    "name": "楚味一人食·自选搭配",
+    "type": "分组可选套餐",
+    "menu_group": "一人食套餐",
+    "main_image": "E:/额外业务/agent操作备份/meituan-套餐上架-2026-10-29/assets/主图_上架用_650x650.jpg",
+    "description": "楚味一人食·自选搭配：荤菜200ml二选一（鱼香肉丝/糖醋里脊/土家酸辣鸡杂/荆州小炒肉/爆炒猪肝/沔阳粉蒸肉/洪湖农家糍粑鱼/罗田板栗烧鸡任选其一），素菜300ml四选一（时令蔬菜/酸辣土豆丝/砂锅花菜/砂锅扁豆），加料二选一（荆楚农家水蒸蛋/江汉平原香米），另配江汉平原香米1份。荆楚风味，一人一餐，热食现做。"
+  },
+
+  "sell": {
+    "portion": "1人份",
+    "price": "29.9",
+    "stock_remain": "10000",
+    "stock_max": "10000",
+    "box_fee": "2",
+    "box_fee_unit": "每1份",
+    "sell_time": "全时段售卖"
+  },
+
+  "groups": [
+    {
+      "name": "荤菜200ml二选一",
+      "type": "可选商品",
+      "pick_n": 1,
+      "items": [
+        "荆味鱼香肉丝", "糖醋里脊", "土家酸辣鸡杂", "荆州小炒肉",
+        "爆炒猪肝", "沔阳粉蒸肉", "洪湖农家糍粑鱼", "罗田板栗烧鸡"
+      ]
+    },
+    {
+      "name": "素菜300ml四选一",
+      "type": "可选商品",
+      "pick_n": 1,
+      "items": [
+        "江汉平原时令蔬菜", "荆西酸辣土豆丝", "砂锅花菜", "砂锅扁豆"
+      ]
+    },
+    {
+      "name": "加料二选一",
+      "type": "可选商品",
+      "pick_n": 1,
+      "items": ["荆楚农家水蒸蛋", "江汉平原香米"]
+    },
+    {
+      "name": "固定香米",
+      "type": "固定商品",
+      "pick_n": null,
+      "items": ["江汉平原香米"]
+    }
+  ],
+
+  "_踩过的坑": {
+    "加料二选一": "「加一份香米」在菜单里搜不到，改用「江汉平原香米」(¥3)",
+    "group_name_maxlength": 10,
+    "package_name_maxlength": 30,
+    "description_maxlength": 200,
+    "image_min_size": "600x450px",
+    "image_max_size": "5MB",
+    "image_slots": 5,
+    "price_input_note": "价格输入框中心被 addon-icon 遮住，必须点最左侧（脚本里 fx=0.08）"
+  }
+}
