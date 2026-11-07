@@ -1,9 +1,9 @@
-# 美团外卖商家后台 · 套餐上架自动化
+# 外卖平台商品上传 折扣活动改价
 
-> 备份时间：2026-10-29
-> 实战对象：千湖边湖北菜（经开万达店）· 门店ID `wmqhbh64296`
-> 后台地址：`https://waimaie.meituan.com/#/gw/static_resource/product#/listView`
-> 成果：4 个套餐上架 —— 3 个固定搭配（用户手工）+ **1 个分组可选「楚味一人食·自选搭配」（本流程全自动完成）**
+> 备份时间：2026-10-29 建档，2026-11-07 更名并入淘宝闪购操作（原名「美团外卖商家后台·套餐上架自动化」，目录 meituan-套餐上架-2026-10-29）
+> 实战对象：千户边湖北菜（经开万达店）· 美团门店ID `wmqhbh64296` / 闪购（饿了么）shopId `544924353`
+> 后台地址：美团 `https://waimaie.meituan.com/#/gw/static_resource/product#/listView`；闪购 `https://melody.shop.ele.me`
+> 成果：美团 4 个套餐上架 + 闪购 3 个固定套餐上架 + 双平台折扣/特价活动改价（详见文末「十三、2026-11-07 追加」）
 
 ---
 
@@ -31,7 +31,7 @@
 ## 二、目录结构
 
 ```
-meituan-套餐上架-2026-10-29/
+外卖平台商品上传-折扣活动改价/        # 原 meituan-套餐上架-2026-10-29/
 ├── README.md                       # ★ 本文件：完整可复现操作手册
 ├── 上架数据模板.json                # ★ 改这里就能上架下一个套餐（规格/价格/文案全在这里）
 ├── scripts/                        # 全部脚本（按执行顺序，文件名即顺序）
@@ -522,7 +522,7 @@ for x in cdp.contexts():
 | # | 运行位置 | 命令 | 耗时 | 结果 |
 |---|---|---|---|---|
 | 1 | 工作区 `C:\Users\O\WorkBuddy\2026-10-29-14-10-32` | `run_all.py --no-save` | 约 5 min | **exit=0**，8 步全过 |
-| 2 | 归档 `…\meituan-套餐上架-2026-10-29\scripts` | `run_all.py --no-save` | 3 min 23 s | **exit=0**，8 步全过 |
+| 2 | 归档 `…\外卖平台商品上传-折扣活动改价\scripts`（更名前 `meituan-套餐上架-2026-10-29`） | `run_all.py --no-save` | 3 min 23 s | **exit=0**，8 步全过 |
 
 两次的核对输出逐字相同：
 
@@ -541,3 +541,62 @@ for x in cdp.contexts():
 
 > 第 2 次（从归档目录独立跑）是**归档可信度的硬证据** ——
 > 证明归档里的脚本 + 模板不依赖工作区里的任何残留文件。
+
+---
+
+## 十三、2026-11-07 追加：淘宝闪购上传 3 套餐 + 双平台折扣活动改价
+
+本节把操作范围从「美团单平台」扩展到「美团 + 淘宝闪购（饿了么）双平台」，并新增「折扣活动改价」链路。详细过程记录见工作区日志 `.workbuddy/memory/2026-10-29.md`（本主题主记录）与 `2026-11-07.md`。
+
+### 13.1 闪购上传 3 个固定套餐（经开区万达·千户边店，shopId 544924353）
+
+| 套餐 | 构成（闪购侧单品价） | 定价（=加总） |
+|---|---|---|
+| 糍粑鱼套餐 | 洪湖农家糍粑鱼¥39 + 荆西酸辣土豆丝¥19 + 江汉平原香米¥3 | ¥61 |
+| 糖醋里脊套餐 | 糖醋里脊¥28 + 江汉平原时令蔬菜¥19 + 江汉平原香米¥3 | ¥50 |
+| 鱼香肉丝套餐 | 荆味鱼香肉丝¥29 + 砂锅扁豆¥28 + 江汉平原香米¥3 | ¥60 |
+
+入口：`melody.shop.ele.me` → 商品管理 →「新建套餐」，表单在 `napos-goods-pc.faas.ele.me/package` iframe。脚本 `%TEMP%/ele/packlib.py` + `ele_create_pack.py`。核验：「经典套餐」分组 8→11、全部 tab 55→58。
+
+闪购侧关键坑（与美团完全不同的组件体系，antd + ngoods）：
+1. 「添加商品」是 div（index_addBtn）不是 button；首点弹「套餐类型说明」引导，点「知道了」后要**再点一次**。
+2. 选品弹窗不是 `.ant-modal`，按「选择店内商品」文本向上找含「取 消」的容器。
+3. 搜索框 `input.ngoods-input`：native setter 写值 + input 事件 + Enter 触发；勾选按行文本 `startsWith(菜名)`（防误选同名套餐行）。
+4. ⚠️ 最大坑：`input.ant-input-number-input` 前几个是**份数框**不是价格框。套餐价格=当前为空值那个 index，打包费=最后一个（留空报「不得为空」）。
+5. 平台给新套餐自动加「楚味一人食·」前缀；封面自动智能拼图无需传图。
+6. 校验规则：套餐价不得超过店内全部商品原价总和——按加总定价正好压线合法。
+
+### 13.2 闪购「商品活动·特价」= 美团折后价 + 3
+
+路径：营销中心 → marketing-center/single「商品活动」卡 `div.create-btn` → iframe `napos-activity-pc.faas.ele.me`：
+- step1 基础信息默认即合规（全部顾客/优惠类型=特价 SKU_LOCK_PRICE/外卖/全天）；下一步弹《营销智推服务协议》选「**不开启**」。
+- step2 `chooseGoods?benefitType=SKU_LOCK_PRICE`：商品直接内嵌列表，左分组「经典套餐」→ 勾行 →「确 定」→ 三商品特价不同，点「跳过，去单个设置」。
+- 每行「创建规则」drawer：特价输入框 = `input.ant-input` 且 placeholder 含「表示特价」→ native setter 填值 →「确 定」。
+-「提交活动」→ URL 到 `createSuccess` 即成功；「匿名问卷」modal 点「残忍拒绝」。
+- 验收只看活动侧：商品管理页**只显示原价**，别拿它当折扣验收依据。
+
+### 13.3 双平台折扣价下调（11-07 16:4x）
+
+扰动指令「美团 -3、闪购 -5」，改后闪购比美团高 1 元：
+
+| 套餐 | 美团折后价 | 闪购特价 |
+|---|---|---|
+| 糍粑鱼 | 35.9 → **32.9** | 38.9 → **33.9** |
+| 糖醋里脊 | 29.9 → **26.9** | 32.9 → **27.9** |
+| 鱼香肉丝 | 31.9 → **28.9** | 34.9 → **29.9** |
+
+**美团改价**：活动中心·自营销活动（`wmact/pc` iframe）→「折扣商品」→ `myList.html?actType=17` → 行内「修改」进 `createEditAct.html?operateType=edit&actId=…` → `input[type=number][placeholder=输入折后价]` native setter 填值 →「确定修改」。
+**坑**：操作列「详情/修改/删除」是独立列容器、与商品行不同 `tr` —— 必须按商品名叶子元素的 `getBoundingClientRect().y` 找最近「修改」链接；点「修改」后 iframe context 重建，旧 cid 立刻失效，重扫 frame + `evaluate("'ok'", cid)` 探活轮询。
+
+**闪购改价**：我的活动 `my-food-activity`（melody-activity-index，status=ACTIVATED）→「查看详情」→ `singleShopDetail?activityId=` →「修改规则」→ SPA 进 `commodityActivities?activityId=…`（人群/类型/日期锁定）→「表示特价」input 填值 →「提交活动」→ 回 singleShopDetail 即成功。
+**坑**：每次点击后 frame URL 变、context 重建可达 3~6s，轮询提到 40 次；JS 表达式必须带尾部 `()`（漏了就是 IIFE 没执行，点了没反应）。
+
+**通用配方（双平台都适用）**：
+```js
+const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+mod.focus(); setter.call(mod, '26.9');
+mod.dispatchEvent(new Event('input',  { bubbles: true }));
+mod.dispatchEvent(new Event('change', { bubbles: true }));
+mod.dispatchEvent(new Event('blur',   { bubbles: true }));
+```
+**铁律**：改价只动活动/折扣价，商品原价一律不碰。
